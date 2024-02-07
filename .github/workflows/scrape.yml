@@ -2,11 +2,14 @@ name: Scrape
 on: workflow_dispatch
 
 jobs:
+  permissions:
+    # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+    contents: write
   scrape:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-node@v3
       with:
         node-version: 18
@@ -17,7 +20,6 @@ jobs:
     - name: Run Scraper
       run: npm run scrape
     - name: Commit and push changes
-      uses: devops-infra/action-commit-push@master
+    - uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        commit_prefix: "[AUTO-COMMIT]"
+        commit_message: "[AUTO-COMMIT]"
