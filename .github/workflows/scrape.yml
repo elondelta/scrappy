@@ -2,12 +2,11 @@ name: Scrape
 on: workflow_dispatch
 
 jobs:
-  permissions:
-    # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
-    contents: write
   scrape:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v3
@@ -19,7 +18,6 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Scraper
       run: npm run scrape
-    - name: Commit and push changes
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "[AUTO-COMMIT]"
