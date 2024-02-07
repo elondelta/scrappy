@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx playwright test",
+    "scrape": "npx playwright test",
     "process": "npx ts-node services/process.ts",
     "debug": "npx playwright test --debug",
     "debug:check": "npx playwright test --ui",
