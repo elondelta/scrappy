@@ -1,22 +1,18 @@
 var fs = require('fs');
 import { json2csv } from 'json-2-csv';
 
-type PhoneNumbers = {
-    number:string,
-    verified:boolean
-}
-type House = {
+export type House = {
     publishedDate: string;
         district: string;
         city:string;
         contactName: string;
-        phoneNumbers: PhoneNumbers[];
+        phoneNumbers: string[];
         adDeactivates: string;
-        description: string;
+        // description: string;
         adId: number;
-        isMember: boolean;
-        isVerified: boolean;
-        memberSince: string;
+        // isMember: boolean;
+        // isVerified: boolean;
+        // memberSince: string;
         price: string;
         slug: string;
         title:string;
@@ -43,13 +39,13 @@ export function getHouseAdDetailsFromRawAd(rawJson:any) : House {
         district: ad.area?.name,
         city:ad.location.name,
         contactName: ad.contactCard?.name,
-        phoneNumbers: ad.contactCard?.phoneNumbers,
+        phoneNumbers: ad.contactCard?.phoneNumbers?.map(p => p.number),
         adDeactivates: ad.deactivates,
-        description: ad.description?.replace(/\n|\r/g, ""),
+        // description: ad.description?.replace(/\n|\r/g, ""),
         adId: ad.id,
-        isMember: ad.isMember,
-        isVerified: ad.isVerified,
-        memberSince: ad.memberSince,
+        // isMember: ad.isMember,
+        // isVerified: ad.isVerified,
+        // memberSince: ad.memberSince,
         price: ad.money.amount,
         slug: ad.slug,
         title: ad.title,
